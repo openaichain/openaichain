@@ -1,0 +1,10 @@
+/**
+ *  @file
+ *  @copyright defined in oac/LICENSE.txt
+ */
+
+namespace oac { namespace unittests { namespace config {
+   constexpr char oaclib_path[] = "${CMAKE_CURRENT_SOURCE_DIR}/../contracts";
+   constexpr char pfr_include_path[] = "${CMAKE_CURRENT_SOURCE_DIR}/../externals/magic_get/include";
+   constexpr char boost_include_path[] = "${Boost_INCLUDE_DIR}";
+}}}

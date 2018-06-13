@@ -1,0 +1,14 @@
+#include <stdint.h>
+#include <oac/utilities/git_revision.hpp>
+
+#define OAC_GIT_REVISION_SHA "@OAC_GIT_REVISION_SHA@"
+#define OAC_GIT_REVISION_UNIX_TIMESTAMP @OAC_GIT_REVISION_UNIX_TIMESTAMP@
+#define OAC_GIT_REVISION_DESCRIPTION "@OAC_GIT_REVISION_DESCRIPTION@"
+
+namespace oac { namespace utilities {
+
+const char* const git_revision_sha = OAC_GIT_REVISION_SHA;
+const uint32_t git_revision_unix_timestamp = OAC_GIT_REVISION_UNIX_TIMESTAMP;
+const char* const git_revision_description = OAC_GIT_REVISION_DESCRIPTION;
+
+} } // end namespace oac::utilities

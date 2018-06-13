@@ -1,0 +1,86 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/oaccoin/.oaccoin" ]; then
+	OACCOIND_DEFAULT_DATADIR="/var/lib/oaccoin/.oaccoin"
+else
+	OACCOIND_DEFAULT_DATADIR="/var/lib/oaccoind"
+fi
+
+OACCOIND_CONFIGFILE=${OACCOIND_CONFIGFILE:-/etc/oaccoin/oaccoin.conf}
+OACCOIND_PIDDIR=${OACCOIND_PIDDIR:-/var/run/oaccoind}
+OACCOIND_PIDFILE=${OACCOIND_PIDFILE:-${OACCOIND_PIDDIR}/oaccoind.pid}
+OACCOIND_DATADIR=${OACCOIND_DATADIR:-${OACCOIND_DEFAULT_DATADIR}}
+OACCOIND_USER=${OACCOIND_USER:-oaccoin}
+OACCOIND_GROUP=${OACCOIND_GROUP:-oaccoin}
+OACCOIND_BIN=${OACCOIND_BIN:-/usr/bin/oaccoind}
+
+name="oaccoin Core Daemon"
+description="oaccoin crypto-currency p2p network daemon"
+
+command="/usr/bin/oaccoind"
+command_args="-pid=\"${OACCOIND_PIDFILE}\" \
+		-conf=\"${OACCOIND_CONFIGFILE}\" \
+		-datadir=\"${OACCOIND_DATADIR}\" \
+		-daemon \
+		${OACCOIND_OPTS}"
+
+required_files="${OACCOIND_CONFIGFILE}"
+start_stop_daemon_args="-u ${OACCOIND_USER} \
+			-N ${OACCOIND_NICE:-0} -w 2000"
+pidfile="${OACCOIND_PIDFILE}"
+retry=60
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${OACCOIND_USER}:${OACCOIND_GROUP}" \
+	"${OACCOIND_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${OACCOIND_USER}:${OACCOIND_GROUP}" \
+	"${OACCOIND_PIDDIR}"
+
+	checkpath -f \
+	-o ${OACCOIND_USER}:${OACCOIND_GROUP} \
+	-m 0660 \
+	${OACCOIND_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${OACCOIND_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run oaccoind."
+		eerror "The setting must appear in ${OACCOIND_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"oaccoin Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

@@ -1,0 +1,5 @@
+Building oaccoin
+
+See doc/build-*.md for instructions on building oaccoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of oaccoin.

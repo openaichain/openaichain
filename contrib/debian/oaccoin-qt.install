@@ -1,0 +1,6 @@
+usr/local/bin/oaccoin-qt usr/bin
+share/pixmaps/oaccoin32.xpm usr/share/pixmaps
+share/pixmaps/oaccoin16.xpm usr/share/pixmaps
+share/pixmaps/oaccoin128.png usr/share/pixmaps
+debian/oaccoin-qt.desktop usr/share/applications
+debian/oaccoin-qt.protocol usr/share/kde4/services/

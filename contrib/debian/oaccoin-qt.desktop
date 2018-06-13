@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=oaccoin
+Comment=oaccoin P2P Cryptocurrency
+Comment[fr]=oaccoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=oaccoin, eşten eşe kriptografik sanal para birimi
+Exec=oaccoin-qt %u
+Terminal=false
+Type=Application
+Icon=oaccoin128
+MimeType=x-scheme-handler/oaccoin;
+Categories=Office;Finance;

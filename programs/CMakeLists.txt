@@ -1,0 +1,6 @@
+add_subdirectory( nodoac )
+add_subdirectory( cloac )
+add_subdirectory( koacd )
+add_subdirectory( oac-launcher )
+add_subdirectory( oac-applesedemo )
+add_subdirectory( oac-abigen )

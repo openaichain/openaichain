@@ -1,0 +1,27 @@
+# /etc/conf.d/oaccoind: config file for /etc/init.d/oaccoind
+
+# Config file location
+#OACCOIND_CONFIGFILE="/etc/oaccoin/oaccoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $OACCOIND_USER)
+#OACCOIND_PIDDIR="/var/run/oaccoind"
+
+# What filename to give the pidfile
+#OACCOIND_PIDFILE="${OACCOIND_PIDDIR}/oaccoind.pid"
+
+# Where to write oaccoind data (be mindful that the blockchain is large)
+#OACCOIND_DATADIR="/var/lib/oaccoind"
+
+# User and group to own oaccoind process
+#OACCOIND_USER="oaccoin"
+#OACCOIND_GROUP="oaccoin"
+
+# Path to oaccoind executable
+#OACCOIND_BIN="/usr/bin/oaccoind"
+
+# Nice value to run oaccoind under
+#OACCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+OACCOIND_OPTS="-disablewallet"
+

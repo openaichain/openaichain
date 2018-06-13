@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This is a thin wrapper around oaccoin-cli that strips the Windows-style EOLs
+# from the output if present. It is necessary when using oaccoin-cli.exe on
+# Linux since shells will interpret the line-endings as part of the result.
+
+CURDIR=$(cd $(dirname "$0"); pwd)
+# Get BUILDDIR and REAL_OACCOIND
+
+# Grab the value of $REAL_OACCOINCLI which may be oaccoin-cli.exe.
+. "${CURDIR}/tests-config.sh"
+
+"${REAL_OACCOINCLI}" "$@" | sed 's/\r//'

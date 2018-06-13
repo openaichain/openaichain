@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  nodoacd:
+    image: oac/oac:v1.0.1
+    command: /opt/oac/bin/nodoacd.sh --data-dir /opt/oac/bin/data-dir -e
+    hostname: nodoacd
+    ports:
+      - 8888:8888
+      - 9876:9876
+    expose:
+      - "8888"
+    volumes:
+      - nodoac-data-volume:/opt/oac/bin/data-dir
+
+  koacd:
+    image: oac/oac:v1.0.1
+    command: /opt/oac/bin/koacd --wallet-dir /opt/oac/bin/data-dir --http-server-address=127.0.0.1:8900
+    hostname: koacd
+    links:
+      - nodoacd
+    volumes:
+      - koacd-data-volume:/opt/oac/bin/data-dir
+
+volumes:
+ nodoac-data-volume:
+   external: true
+ koacd-data-volume:
+   external: true

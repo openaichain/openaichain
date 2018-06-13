@@ -1,0 +1,12 @@
+/**
+ *  @file
+ *  @copyright defined in oac/LICENSE.txt
+ */
+
+#include <oac/chain/genesis_state.hpp>
+
+namespace oac { namespace chain {
+
+const string genesis_state::oac_root_key = "${OACIO_ROOT_KEY}";
+
+} } // namespace oac::chain
